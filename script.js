@@ -87,7 +87,7 @@ const findProp = (array, name) => {
 
 /**ETAPE 4 : afficher les informations de mon mot sur ma page HTML*/
 const renderToHTML = () => {
-    console.log("Jouter les infos sur ma page HTML")
+    console.log("Jouter les infos sur ma page")
 }
 
 
