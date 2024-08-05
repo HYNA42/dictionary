@@ -42,10 +42,9 @@ const apiCall = (word) => {
        * 4) définitions
        */
       const inforamtionsNeeded = extractData(data[0]);
-        console.log("InformationsToShow", inforamtionsNeeded);
-        
-        renderToHTML(inforamtionsNeeded)
-        
+      //   console.log("InformationsToShow", inforamtionsNeeded);
+
+      renderToHTML(inforamtionsNeeded);
     })
     .catch((er) => {
       console.log(er);
@@ -66,6 +65,7 @@ const extractData = (data) => {
     word: word,
     phonetics: phonetics,
     pronon: pronon,
+    meanings: meanings,
   };
 };
 const findProp = (array, name) => {
@@ -84,17 +84,77 @@ const findProp = (array, name) => {
   //   console.log("propToFind", propToFind);
 };
 
-
 /**ETAPE 4 : afficher les informations de mon mot sur ma page HTML*/
-const renderToHTML = () => {
-    console.log("Jouter les infos sur ma page")
-}
+const renderToHTML = (data) => {
+  //Afficher la carte
+  const card = document.querySelector(".js-card");
+  card.classList.remove("card--hidden");
 
+  //   console.log(data);
+  //1 mot
+  const title = document.querySelector(".js-card-title");
+  title.textContent = data.word;
+  //2 phonetics
+  const phonetics = document.querySelector(".js-card-phonetic");
+  phonetics.textContent = data.phonetics;
+  //3 prononciation
+  const prononciation = document.querySelector(".js-card-phonetic");
+  phonetics.textContent = data.phonetics;
+  // console.log(title)
 
+  //creation d'éléments HTML dynamiques
+  const list = document.querySelector(".js-card-list");
+  // console.log(list)
 
+  list.innerHTML = ""; //réinitialiser le rendu
 
+  for (let i = 0; i < data.meanings.length; i++) {
+    const meaning = data.meanings[i];
+    const partOfSpeech = meaning.partOfSpeech;
+    const definition = meaning.definitions[0].definition;
+    // console.log("meanigs", meaning);
+    // console.log("partOfSpeech", partOfSpeech);
+    // console.log("definition", definition);
+    //solution 1 : avec un innerHTML incremente
+    // list.innerHTML += `
+    //     <p class="card__part-of-speech">${partOfSpeech}</p>
+    //     <p class="card__definition">${definition}</p>
+    // `;
 
+    //solution 2 : avec la création d'éléments
+    const li = document.createElement("li");
+    li.classList.add("card__meaning");
+    const pPartOfSpeech = document.createElement("p");
+    pPartOfSpeech.classList.add("card__part-of-speech");
+    pPartOfSpeech.textContent = partOfSpeech;
 
+    const pDefinition = document.createElement("p");
+    pDefinition.classList.add("card__definition");
+    pDefinition.textContent = definition;
+
+    li.appendChild(pPartOfSpeech);
+    li.appendChild(pDefinition);
+    list.appendChild(li);
+  }
+
+  //Ajout de l'audio en js
+  const button = document.querySelector(".js-card-button");
+  // console.log(button)
+  // console.log(data.pronon)
+  const audio = new Audio(data.pronon);
+  button.addEventListener("click", () => {
+    console.log(data.pronon);
+    audio.play();
+    button.classList.remove("card__player--off");
+    button.classList.add("card__player--on");
+  });
+  audio.addEventListener("ended", () => {
+    console.log("FIN");
+    button.classList.remove("card__player--on");
+    button.classList.add("card__player--off");
+  });
+  //   console.log("AJOUTER les infos sur ma page HTML", data);
+};
 
 //LANCEMENT DU PROGRAMME
 watchSubmit();
