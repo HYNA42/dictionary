@@ -13,8 +13,8 @@ Ce projet est un dictionnaire interactif en ligne permettant de rechercher des m
 - **Prononciation audio**: Lecture audio de la prononciation des mots.
 - **Interface utilisateur dynamique**: Mise à jour dynamique de l'interface utilisateur en fonction des résultats de recherche.
 
-![alt text](dico2.png)
 
+![alt text](dico2.png)
 ## Technologies Utilisées
 
 - **HTML5**: Structure de la page.
@@ -54,3 +54,5 @@ Ce projet est un dictionnaire interactif en ligne permettant de rechercher des m
 - `index.html`: Structure de la page web.
 - `style.css`: Styles pour la mise en page et l'apparence.
 - `script.js`: Logique JavaScript pour l'interaction et le comportement du dictionnaire.
+ ## A faire après 
+ - ajouter une logique d'alerte si le mot n'existe pas ou introuvé par l'API
